@@ -1,0 +1,20 @@
+1.需求分析：
+    1.可以罗列出全国所有的省市县
+    2.可以查看全国任意城市的天气信息
+    3.可以自由的切换城市查看其他城市的天气信息
+    4.提供手动更新与后台自动更新天气的功能
+
+
+2.所有省份：http://guolin.tech/api/china
+
+    省份后城市：http://guolin.tech/api/china/16
+
+        城市后县区：http://guolin.tech/api/china/16/116
+
+3.和风天气key:0802e92ad0514d93bdb79d161d091eb3
+4.访问天气接口：http://guolin.tech/api/weather?cityid=CN101190401&key=0802e92ad0514d93bdb79d161d091eb3
+G:\Android\test\CoolWeather\app
+
+5.将代码托管到GitHub上：
+    https://github.com/gqgithub/coolweather
+    版本库地址：https://github.com/gqgithub/coolweather.git
