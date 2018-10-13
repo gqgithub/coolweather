@@ -11,8 +11,9 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.gq.coolweather.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/create"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"/>
+        android:text="create table"/>
 </RelativeLayout>
