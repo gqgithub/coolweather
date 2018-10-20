@@ -9,9 +9,27 @@ import org.litepal.crud.LitePalSupport;
  */
 
 public class Province extends LitePalSupport{
-
+/*
+    [
+    {
+        "id":1,
+            "name":"北京"
+    },
+    {
+        "id":2,
+            "name":"上海"
+    },
+    {
+        "id":3,
+            "name":"天津"
+    }
+    ]
+*/
+    /**省份数据表的编号id*/
     private int id;
+    /**省份的名称*/
     private String provinceName;
+    /**省份的编号id*/
     private int provinceCode;
 
     public int getId() {

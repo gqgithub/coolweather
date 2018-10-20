@@ -10,9 +10,13 @@ import org.litepal.crud.LitePalSupport;
 
 public class City extends LitePalSupport{
 
+    /**市级数据表的编号id*/
     private int id;
+    /**市级的名称*/
     private String cityName;
+    /**市级的编号id*/
     private int cityCode;
+    /**市级所属省级的编号id*/
     private int provinceId;
 
     public int getProvinceId() {

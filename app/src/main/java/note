@@ -23,10 +23,14 @@
 
 7.遍历全国省市县数据
 
+8.显示天气信息
+   8.1 定义gson实体类
+   8.2 编写天气界面
 
 
-
-
+Error:Failed to resolve: com.android.support:support-annotations:27.1.1
+Open File
+Show in Project Structure dialog
 
 
 
