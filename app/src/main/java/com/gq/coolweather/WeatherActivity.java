@@ -3,10 +3,13 @@ package com.gq.coolweather;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -63,8 +66,13 @@ public class WeatherActivity extends AppCompatActivity {
     /**背景圖片*/
     private ImageView bingPicImg;
 
-    private SwipeRefreshLayout swipeRefresh;
+    /**下拉刷新*/
+    public SwipeRefreshLayout swipeRefresh;
     private String mWeatherId;
+
+    /**侧滑菜单*/
+    public DrawerLayout drawerLayout;
+    private Button navButton;
 
 
     @Override
@@ -136,6 +144,16 @@ public class WeatherActivity extends AppCompatActivity {
             }
         });
 
+        //添加侧滑菜单功能
+        drawerLayout= (DrawerLayout) findViewById(R.id.drawer_layout);
+        navButton= (Button) findViewById(R.id.nav_button);
+        navButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+
 
     }
 
@@ -168,7 +186,7 @@ public class WeatherActivity extends AppCompatActivity {
      * 查询天气信息数据
      * @param weatherId
      */
-    private void requestWeather(String weatherId) {
+    public void requestWeather(String weatherId) {
         String weatherUrl="http://guolin.tech/api/weather?cityid="+weatherId+"&key=0802e92ad0514d93bdb79d161d091eb3";
         HttpUtil.sendOkHttpRequest(weatherUrl, new Callback() {
             @Override
