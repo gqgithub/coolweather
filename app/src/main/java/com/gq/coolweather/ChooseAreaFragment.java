@@ -1,6 +1,7 @@
 package com.gq.coolweather;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import com.gq.coolweather.db.City;
 import com.gq.coolweather.db.County;
 import com.gq.coolweather.db.Province;
+import com.gq.coolweather.util.Contants;
 import com.gq.coolweather.util.HttpUtil;
 import com.gq.coolweather.util.JsonUtil;
 
@@ -105,6 +107,13 @@ public class ChooseAreaFragment extends Fragment {
                     //选中城市查询所有县
                     selectedCity=mCityList.get(position);
                     queryCounties();
+                }else if(currentLevel==LEVEL_COUNTY){
+                    //查询选中县的天气
+                    String weatherId=mCountyList.get(position).getWeatherId();
+                    Intent intent=new Intent(getActivity(),WeatherActivity.class);
+                    intent.putExtra(Contants.WEATHER_ID,weatherId);
+                    startActivity(intent);
+
                 }
             }
         });
