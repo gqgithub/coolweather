@@ -3,6 +3,7 @@ package com.gq.coolweather;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,6 +63,10 @@ public class WeatherActivity extends AppCompatActivity {
     /**背景圖片*/
     private ImageView bingPicImg;
 
+    private SwipeRefreshLayout swipeRefresh;
+    private String mWeatherId;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,27 +101,23 @@ public class WeatherActivity extends AppCompatActivity {
         sportText= (TextView) findViewById(R.id.sport_text);
 
 
-        /*String weatherString=(String)SharedPreferencesUtils.getParam(this,Contants.WEATHER_INFO,null);
+        String weatherString=(String)SPUtils.get(this,Contants.WEATHER_INFO,null);
         //判断是否有缓存
         if(weatherString!=null){
             //有缓存直接解析数据
             Weather weather= JsonUtil.handleWeatherResponse(weatherString);
+            mWeatherId=weather.basic.weatherId;
             showWeatherInfo(weather);
         }else{
             //无缓存查询网络
-            String weatherId=getIntent().getStringExtra(Contants.WEATHER_ID);
+            mWeatherId=getIntent().getStringExtra(Contants.WEATHER_ID);
             //请求数据之前先将空布局隐藏，不然空数据的界面显得有些奇怪
             weatherLayout.setVisibility(View.INVISIBLE);
-            requestWeather(weatherId);
+            requestWeather(mWeatherId);
 
-        }*/
+        }
 
-        //无缓存查询网络
-        String weatherId=getIntent().getStringExtra(Contants.WEATHER_ID);
-        //请求数据之前先将空布局隐藏，不然空数据的界面显得有些奇怪
-        weatherLayout.setVisibility(View.INVISIBLE);
-        requestWeather(weatherId);
-
+        //添加背景图片
         bingPicImg= (ImageView) findViewById(R.id.bing_pic_img);
         String bingPic=(String) SPUtils.get(this,Contants.BINGPICIMG,null);
         if(bingPic!=null){
@@ -124,6 +125,17 @@ public class WeatherActivity extends AppCompatActivity {
         }else{
             loadBingPic();
         }
+
+        //添加下拉刷新
+        swipeRefresh= (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
+        swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                requestWeather(mWeatherId);
+            }
+        });
+
 
     }
 
@@ -166,6 +178,7 @@ public class WeatherActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Toast.makeText(WeatherActivity.this,"获取天气信息失败",Toast.LENGTH_SHORT).show();
+                        swipeRefresh.setRefreshing(false);
                     }
                 });
             }
@@ -184,6 +197,8 @@ public class WeatherActivity extends AppCompatActivity {
                         }else{
                             Toast.makeText(WeatherActivity.this,"获取天气信息失败",Toast.LENGTH_SHORT).show();
                         }
+                        //停止刷新
+                        swipeRefresh.setRefreshing(false);
                     }
                 });
             }
