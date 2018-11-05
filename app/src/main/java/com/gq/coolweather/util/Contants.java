@@ -8,11 +8,11 @@ package com.gq.coolweather.util;
 
 public class Contants {
 
-    public static final String WEATHER_INFO="weather";
+    public static String WEATHER_INFO="weather";
 
-    public static final String WEATHER_ID="weatherid";
+    public static String WEATHER_ID="weatherid";
 
-    public static final String BINGPICIMG = "bingpicimg";
+    public static String BINGPICIMG = "bingpicimg";
 
-    public static final String BINGPICIMG_PATH = "http://guolin.tech/api/bing_pic";
+    public static String BINGPICIMG_PATH = "http://guolin.tech/api/bing_pic";
 }
