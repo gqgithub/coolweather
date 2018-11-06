@@ -8,7 +8,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -112,7 +111,7 @@ public class WeatherActivity extends AppCompatActivity {
         sportText= (TextView) findViewById(R.id.sport_text);
 
 
-        String weatherString=(String)SPUtils.getParam(this,Contants.WEATHER_INFO,null);
+        String weatherString=(String)SPUtils.getString(this,Contants.WEATHER_INFO,null);
 
         //判断是否有缓存
         if(weatherString!=null){
@@ -132,7 +131,7 @@ public class WeatherActivity extends AppCompatActivity {
 
         //添加背景图片
         bingPicImg= (ImageView) findViewById(R.id.bing_pic_img);
-        String bingPic=(String) SPUtils.getParam(this,Contants.BINGPICIMG,null);
+        String bingPic=(String) SPUtils.getString(this,Contants.BINGPICIMG,null);
         if(bingPic!=null){
             Glide.with(this).load(bingPic).into(bingPicImg);
         }else{
@@ -175,7 +174,7 @@ public class WeatherActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 final String bingPic=response.body().string();
-                SPUtils.setParam(WeatherActivity.this,Contants.BINGPICIMG,bingPic);
+                SPUtils.putString(WeatherActivity.this,Contants.BINGPICIMG,bingPic);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -215,8 +214,7 @@ public class WeatherActivity extends AppCompatActivity {
                     public void run() {
                         if (weather!=null&&"ok".equals(weather.status)){
                             //保存查询的天气信息
-                            SPUtils.setParam(WeatherActivity.this,Contants.WEATHER_INFO,responseText);
-                            Log.e("GANG","CESHI"+(String) SPUtils.getParam(WeatherActivity.this,Contants.WEATHER_INFO,null));
+                            SPUtils.putString(WeatherActivity.this,Contants.WEATHER_INFO,responseText);
                             showWeatherInfo(weather);
                         }else{
                             Toast.makeText(WeatherActivity.this,"获取天气信息失败",Toast.LENGTH_SHORT).show();

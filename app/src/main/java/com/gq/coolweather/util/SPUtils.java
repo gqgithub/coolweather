@@ -2,8 +2,6 @@ package com.gq.coolweather.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.support.annotation.Nullable;
 
 /**
  * @创建者：刚强
@@ -14,47 +12,113 @@ import android.support.annotation.Nullable;
 public class SPUtils {
 
 
-    public static void setParam(Context context, String key, Object object) {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+    private static final String SP_NAME = "config";
+
+    /**
+     * 存储string
+     *
+     * @param mContext
+     * @param key
+     * @param values
+     */
+    public static void putString(Context mContext, String key, String values) {
+        SharedPreferences sp = mContext.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-
-        if (object instanceof String) {
-            editor.putString(key, (String) object);
-        } else if (object instanceof Integer) {
-            editor.putInt(key, (Integer) object);
-        } else if (object instanceof Boolean) {
-            editor.putBoolean(key, (Boolean) object);
-        } else if (object instanceof Float) {
-            editor.putFloat(key, (Float) object);
-        } else if (object instanceof Long) {
-            editor.putLong(key, (Long) object);
-        } else {
-            editor.putString(key, object.toString());
-        }
-
-        editor.apply();
+        editor.putString(key, values);
         editor.commit();
     }
 
+    /**
+     * 读取string
+     *
+     * @param mContext
+     * @param key
+     * @param defValues
+     * @return
+     */
+    public static String getString(Context mContext, String key, String defValues) {
+        SharedPreferences sp = mContext.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
+        return sp.getString(key, defValues);
+    }
 
+    /**
+     * 存储int
+     *
+     * @param mContext
+     * @param key
+     * @param values
+     */
+    public static void putInt(Context mContext, String key, int values) {
+        SharedPreferences sp = mContext.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putInt(key, values);
+        editor.commit();
+    }
 
-    @Nullable
-    public static Object getParam(Context context, String key, Object defaultObject) {
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+    /**
+     * 读取int
+     *
+     * @param mContext
+     * @param key
+     * @param defValues
+     * @return
+     */
+    public static int getInt(Context mContext, String key, int defValues) {
+        SharedPreferences sp = mContext.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
+        return sp.getInt(key, defValues);
+    }
 
-        if (defaultObject instanceof String) {
-            return sp.getString(key, (String) defaultObject);
-        } else if (defaultObject instanceof Integer) {
-            return sp.getInt(key, (Integer) defaultObject);
-        } else if (defaultObject instanceof Boolean) {
-            return sp.getBoolean(key, (Boolean) defaultObject);
-        } else if (defaultObject instanceof Float) {
-            return sp.getFloat(key, (Float) defaultObject);
-        } else if (defaultObject instanceof Long) {
-            return sp.getLong(key, (Long) defaultObject);
-        }
+    /**
+     * 存储boolean
+     *
+     * @param mContext
+     * @param key
+     * @param values
+     */
+    public static void putBoolean(Context mContext, String key, boolean values) {
+        SharedPreferences sp = mContext.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putBoolean(key, values);
+        editor.commit();
+    }
 
-        return null;
+    /**
+     * 读取boolean
+     *
+     * @param mContext
+     * @param key
+     * @param defValues
+     * @return
+     */
+    public static boolean getBoolean(Context mContext, String key, boolean defValues) {
+        SharedPreferences sp = mContext.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
+        return sp.getBoolean(key, defValues);
+    }
+
+    /**
+     * 删除一条数据
+     *
+     * @param mContext
+     * @param key
+     */
+    public static void deleKey(Context mContext, String key) {
+        SharedPreferences sp = mContext.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.remove(key);
+        editor.commit();
+    }
+
+    /**
+     * 删除整个数据
+     *
+     * @param mContext
+     * @param key
+     */
+    public static void deleAll(Context mContext, String key) {
+        SharedPreferences sp = mContext.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.clear();
+        editor.commit();
     }
 
 

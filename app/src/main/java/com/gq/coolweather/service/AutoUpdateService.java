@@ -66,7 +66,7 @@ public class AutoUpdateService extends Service {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String bingPic=response.body().string();
-                SPUtils.setParam(AutoUpdateService.this,Contants.BINGPICIMG,bingPic);
+                SPUtils.putString(AutoUpdateService.this,Contants.BINGPICIMG,bingPic);
             }
         });
 
@@ -76,7 +76,7 @@ public class AutoUpdateService extends Service {
      * 更新天气信息
      */
     private void updateWeather() {
-        String weatherJson= (String) SPUtils.getParam(this, Contants.WEATHER_INFO,null);
+        String weatherJson= (String) SPUtils.getString(this, Contants.WEATHER_INFO,null);
         if(weatherJson!=null){
             //有缓存直接解析
             Weather weather= JsonUtil.handleWeatherResponse(weatherJson);
@@ -93,7 +93,7 @@ public class AutoUpdateService extends Service {
                     String responseText=response.body().string();
                     Weather weather=JsonUtil.handleWeatherResponse(responseText);
                     if (weather!=null&&"ok".equals(weather.status)){
-                        SPUtils.setParam(AutoUpdateService.this,Contants.WEATHER_INFO,responseText);
+                        SPUtils.putString(AutoUpdateService.this,Contants.WEATHER_INFO,responseText);
                     }
                 }
             });
