@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 /**
  * @创建者：刚强
  * @创建时间：2018/11/5 14:05
- * @描述：
+ * @描述：SharedPreferences存储
  */
 
 public class SPUtils {
